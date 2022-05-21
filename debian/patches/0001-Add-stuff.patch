@@ -1,0 +1,94 @@
+From: Timon <todo@todo.todo>
+Date: Sat, 21 May 2022 15:09:05 +0000
+Subject: Add stuff
+
+---
+ CHANGELOG.rst            | 5 +++++
+ package.xml              | 2 +-
+ src/rmw_client.cpp       | 2 ++
+ src/rmw_event.cpp        | 2 ++
+ src/rmw_service.cpp      | 2 ++
+ src/rmw_subscription.cpp | 2 ++
+ 6 files changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/CHANGELOG.rst b/CHANGELOG.rst
+index 76de097..264e64b 100644
+--- a/CHANGELOG.rst
++++ b/CHANGELOG.rst
+@@ -2,6 +2,11 @@
+ Changelog for package rmw_fastrtps_cpp
+ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 
++6.3.0 (2022-05-03)
++------------------
++* Handle 'best_available' QoS policies (`#598 <https://github.com/ros2/rmw_fastrtps/issues/598>`_)
++* Contributors: Jacob Perron
++
+ 6.2.1 (2022-03-28)
+ ------------------
+ * Add pub/sub init, publish and take instrumentation using tracetools (`#591 <https://github.com/ros2/rmw_fastrtps/issues/591>`_)
+diff --git a/package.xml b/package.xml
+index 94821db..c820fa4 100644
+--- a/package.xml
++++ b/package.xml
+@@ -2,7 +2,7 @@
+ <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+ <package format="3">
+   <name>rmw_fastrtps_cpp</name>
+-  <version>6.2.1</version>
++  <version>6.3.0</version>
+   <description>Implement the ROS middleware interface using eProsima FastRTPS static code generation in C++.</description>
+   <maintainer email="michel@ekumenlabs.com">Michel Hidalgo</maintainer>
+   <maintainer email="michael.jeronimo@openrobotics.org">Michael Jeronimo</maintainer>
+diff --git a/src/rmw_client.cpp b/src/rmw_client.cpp
+index c718243..875e99a 100644
+--- a/src/rmw_client.cpp
++++ b/src/rmw_client.cpp
+@@ -532,6 +532,8 @@ rmw_client_set_on_new_response_callback(
+   rmw_event_callback_t callback,
+   const void * user_data)
+ {
++  RMW_CHECK_ARGUMENT_FOR_NULL(rmw_client, RMW_RET_INVALID_ARGUMENT);
++
+   return rmw_fastrtps_shared_cpp::__rmw_client_set_on_new_response_callback(
+     rmw_client,
+     callback,
+diff --git a/src/rmw_event.cpp b/src/rmw_event.cpp
+index 9bdc819..56d8779 100644
+--- a/src/rmw_event.cpp
++++ b/src/rmw_event.cpp
+@@ -54,6 +54,8 @@ rmw_event_set_callback(
+   rmw_event_callback_t callback,
+   const void * user_data)
+ {
++  RMW_CHECK_ARGUMENT_FOR_NULL(rmw_event, RMW_RET_INVALID_ARGUMENT);
++
+   return rmw_fastrtps_shared_cpp::__rmw_event_set_callback(
+     rmw_event,
+     callback,
+diff --git a/src/rmw_service.cpp b/src/rmw_service.cpp
+index cac7dd8..6be16ca 100644
+--- a/src/rmw_service.cpp
++++ b/src/rmw_service.cpp
+@@ -531,6 +531,8 @@ rmw_service_set_on_new_request_callback(
+   rmw_event_callback_t callback,
+   const void * user_data)
+ {
++  RMW_CHECK_ARGUMENT_FOR_NULL(rmw_service, RMW_RET_INVALID_ARGUMENT);
++
+   return rmw_fastrtps_shared_cpp::__rmw_service_set_on_new_request_callback(
+     rmw_service,
+     callback,
+diff --git a/src/rmw_subscription.cpp b/src/rmw_subscription.cpp
+index c254660..1917b6d 100644
+--- a/src/rmw_subscription.cpp
++++ b/src/rmw_subscription.cpp
+@@ -215,6 +215,8 @@ rmw_subscription_set_on_new_message_callback(
+   rmw_event_callback_t callback,
+   const void * user_data)
+ {
++  RMW_CHECK_ARGUMENT_FOR_NULL(rmw_subscription, RMW_RET_INVALID_ARGUMENT);
++
+   return rmw_fastrtps_shared_cpp::__rmw_subscription_set_on_new_message_callback(
+     rmw_subscription,
+     callback,
